@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Navbar } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
 import { ProductDetailList, ProductInfo } from '../../interfaces/product-info';
 import { ListFoodsService } from '../../services/list-foods';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-storage-list',
@@ -11,18 +14,20 @@ import { ListFoodsService } from '../../services/list-foods';
   templateUrl: './storage-list.html',
   styleUrl: './storage-list.scss'
 })
-export class StorageList implements OnInit{
+export class StorageList implements OnInit, AfterViewInit{
   
-  public foodList:  Array<ProductDetailList> = []
+  public foodList:  Observable<Array<ProductDetailList>> 
 
   constructor(
-    private readonly listFoodsService: ListFoodsService
+    private readonly listFoodsService: ListFoodsService,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
-   this.listFoodsService.lisfFood$.subscribe((resp) => {
-    this.foodList = resp
-    })
+   this.foodList = this.listFoodsService.lisfFood$
+  }
+  ngAfterViewInit(): void {
+    window.scrollTo(0,0)
   }
 
   getClassByExpiration(dateString: string): string {
@@ -51,5 +56,20 @@ export class StorageList implements OnInit{
 
     const diffTime = expiration.getTime() - today.getTime();
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  public redirectToNewProduct(): void {
+    this.router.navigate(['register-food'])
+  }
+
+  public backToRegisterFood(item: ProductDetailList): void {
+    this.listFoodsService.selectedFood$.next(item)
+    this.router.navigate(['register-food'])
+  }
+
+  public removeItemList(item: number): void {
+    const listaAtual = this.listFoodsService.lisfFood$.value; 
+    const novaLista = listaAtual.filter((_, i) => i !== item); // remove item
+    this.listFoodsService.lisfFood$.next(novaLista); // 🔹 emite nova lista
   }
 }

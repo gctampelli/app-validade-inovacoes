@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
@@ -22,7 +23,7 @@ import { BarcodeFormat } from '@zxing/library';
   templateUrl: './register-food.html',
   styleUrl: './register-food.scss',
 })
-export class RegisterFood implements OnInit, AfterViewInit {
+export class RegisterFood implements OnInit, AfterViewInit, OnDestroy {
   public foodInfoForm: FormGroup;
   public foodDetails: ProductInfo;
   public foodList: Array<ProductDetailList> = [];
@@ -49,6 +50,7 @@ export class RegisterFood implements OnInit, AfterViewInit {
   public hasDevices = false;
   public availableDevices: MediaDeviceInfo[] = [];
   public selectedDevice: MediaDeviceInfo | undefined;  
+  public foodSelected: ProductDetailList
 
 
   constructor(
@@ -63,17 +65,32 @@ export class RegisterFood implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    window.scrollTo(0,0)
     this.cdr.detectChanges();
   }
 
   public buildForm(): void {
+    this.foodSelected =  this.listFoodsService.selectedFood$.value
+    const foodCode =  this.foodSelected ?  this.foodSelected.code : '';
+    const foodName =  this.foodSelected ?  this.foodSelected.name : ''
+    const foodBrand =  this.foodSelected ?  this.foodSelected.brand : ''
+    const expirationDate =  this.foodSelected ?  this.foodSelected.expirationDate : ''
+    const quantity =   this.foodSelected ?  this.foodSelected.quantity : 1
+    this.showInputFields = !! this.foodSelected
+  
+
+
     this.foodInfoForm = this.formBuilder.group({
-      foodCode: [''],
-      foodName: ['', Validators.required],
-      foodBrand: ['', Validators.required],
-      expirationDate: ['', Validators.required],
-      quantity: [1, Validators.required],
+      foodCode: [foodCode],
+      foodName: [foodName, Validators.required],
+      foodBrand: [foodBrand, Validators.required],
+      expirationDate: [expirationDate, Validators.required],
+      quantity: [quantity, Validators.required],
     });
+
+    if (this.foodSelected) {
+      this.foodInfoForm.markAsDirty()
+    }
   }
 
   public searchFoodInformation(): void {
@@ -97,7 +114,7 @@ export class RegisterFood implements OnInit, AfterViewInit {
   public addFoodOnList(): void {
     this.success = !this.success
     const foodDetail: ProductDetailList = {
-      code: this.foodInfoForm?.controls['code']?.value,
+      code: this.foodInfoForm?.controls['foodCode']?.value,
       name: this.foodInfoForm?.controls['foodName']?.value,
       brand: this.foodInfoForm?.controls['foodBrand']?.value,
       expirationDate: this.foodInfoForm?.controls['expirationDate']?.value,
@@ -161,5 +178,9 @@ export class RegisterFood implements OnInit, AfterViewInit {
 
   onError(error: any) {
     console.error('Barcode scanning error:', error);
+  }
+  ngOnDestroy(): void {
+    this.foodInfoForm.reset()
+    this.listFoodsService.selectedFood$.next(null)
   }
 }

@@ -9,6 +9,7 @@ import { ProductDetailList } from '../interfaces/product-info';
 export class ListFoodsService {
   public url = 'https://world.openfoodfacts.org'
   public lisfFood$ = new BehaviorSubject<Array<ProductDetailList>>(null)
+  public selectedFood$ = new BehaviorSubject<ProductDetailList>(null)
 
   constructor(
     private http: HttpClient
