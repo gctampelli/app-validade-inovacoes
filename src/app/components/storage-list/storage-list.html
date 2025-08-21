@@ -1,8 +1,9 @@
-<app-navbar></app-navbar>
+<div class="storage-list__space">
+  <app-navbar></app-navbar>
 <div class="storage-list__background">
   <header class="storage-list__header h4">Lista de alimentos cadastrados</header>
-  <div class="container">
-    <div *ngFor="let item of foodList" 
+  <div class="container" style="flex: 1;">
+    <div *ngFor="let item of (foodList | async); let i  = index"
          class="card alimento-item mb-2"
          [ngClass]="getClassByExpiration(item.expirationDate.toString())">
       <div class="card-body d-flex justify-content-between align-items-center">
@@ -12,10 +13,32 @@
             <small>Validade: {{ item.expirationDate | date:'dd/MM/yyyy' }}</small>
             <small>Quantidade: {{ item.quantity }}</small>
           </div>
+          <div class="btn-group" style="margin-top: 8px;">
+            <button type="button" class="btn btn-sm btn-primary" (click)="backToRegisterFood(item)">Editar</button>
+            <button type="button" class="btn btn-sm btn-primary" (click)="removeItemList(i)" style="background-color: red; border-color: red;">Excluir</button>
+          </div>
         </div>
         <span class="badge dias">{{ getDaysLeft(item.expirationDate.toString()) }} dias</span>
       </div>
     </div>
+    <div *ngIf="(foodList | async).length <= 0" class="container text-center mt-4" style="background-color: #f6ebc8 !important;">
+      <div class="card shadow-sm p-4 border-0" style="border-radius: 16px;">
+        <h4 class="text-success mb-3">Atenção!</h4>
+        <p class="text-secondary">
+          Você ainda não tem alimentos cadastrados, clique no botão abaixo para adicionar!
+        </p>
+      </div>
+    </div>
 </div>
+<button
+type="button"
+class="btn btn btn-outline-success"
+style="margin: 16px;"
+(click)="redirectToNewProduct()"
+>
+Adicionar novo produto
+</button>
 </div>  
+</div>
+
 

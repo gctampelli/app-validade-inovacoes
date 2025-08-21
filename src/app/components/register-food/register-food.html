@@ -6,7 +6,7 @@
       class="alert alert-success alert-dismissible fade show position-fixed top-25 start-50 translate-middle-x"
       role="alert"
     >
-      <div>Seu produto foi cadastrado com sucesso</div>
+      <div>Seu produto foi <span>{{ foodSelected ? 'atualizado' : 'cadastrado' }}</span>  com sucesso</div>
       <button
         type="button"
         class="btn-close"
@@ -44,7 +44,7 @@
           <button
             type="button"
             class="btn btn-link register-food__search-food--manual"
-            (click)="showInputFields = true"
+            (click)="showInputFields = true; openCamera = false"
           >
             Inserir dados manualmente
           </button>
@@ -56,6 +56,7 @@
             (scanSuccess)="onCodeResult($event)"
             (scanError)="onError($event)"
           ></zxing-scanner>
+          <span style="text-align: justify !important;" class="register-food__label"> Caso não consiga realizar a leitura do código de barras, clique no botão "Inserir dados manualmente" para cadastrar o seu produto.</span>
         </div>
 
         <div class="register-food__form-group">
@@ -169,7 +170,7 @@
         [disabled]="foodInfoForm.invalid"
         (click)="addFoodOnList()"
       >
-        Cadastrar produto
+        {{ foodSelected ? 'Atualizar' : 'Cadastrar produto' }}
       </button>
       <button
         type="button"

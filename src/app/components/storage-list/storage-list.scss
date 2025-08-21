@@ -58,6 +58,13 @@
       padding: 16px;
       color: #2E7D32;
     }
+    
+    &__space {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+    }
   }
 
   
