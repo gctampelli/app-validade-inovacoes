@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.register-food {
+    &__background {
+        background-color: #f6ebc8;
+        // background-image: linear-gradient(135deg, #4CAF50, #8BC34A) ;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+    }
+
+    &__header {
+        font-family: Montserrat;
+        text-align: center;
+        padding: 16px;
+        color: #2E7D32;
+    }
+
+    &__form-group {
+        display: flex;
+        flex-direction: column;
+        //justify-content: space-between;
+        margin: 8px 16px !important;
+
+    }
+
+    &__search-food {
+        display: flex;
+        justify-content: space-between;
+
+        &--search {
+            background-color: #2E7D32;
+            border-color: #2E7D32;
+            margin-bottom: 0px;
+        }
+
+        &--manual {
+            text-align: center; 
+            color: #2E7D32 !important; 
+            margin-left: 5px !important;
+        }
+        
+    }
+
+    &__search-food-input {
+        margin: 0px 16px !important;
+    }
+
+    &__product-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    &__button {
+        margin: 0px 8px;
+        background-color: #2E7D32;
+        border-color: #2E7D32;
+        color: white;
+    }
+
+    &__footer {
+        margin: 16px 8px;
+    }
+
+    &__label {
+        font-family: Montserrat;
+        margin: 2px;
+        color: #2E7D32;
+        font-size: small;
+        font-weight: bold;
+    }
+
+}

@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.alimento-item {
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+  }
+  
+  .alimento-item h6 {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .alimento-item small {
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+  
+  .red {
+    background: linear-gradient(90deg, #ff4d4d, #ff8080);
+  }
+  .orange {
+    background: linear-gradient(90deg, #ff944d, #ffb366);
+  }
+  .yellow {
+    background: linear-gradient(90deg, #ffd633, #ffeb99);
+    color: #333;
+  }
+  .green {
+    background: linear-gradient(90deg, #4dff88, #80ffaa);
+    color: #333;
+  }
+  .gray {
+    background: #bfbfbf;
+    color: #333;
+  }
+  
+  .badge.dias {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.85);
+    color: #333;
+  }
+
+  .storage-list {
+    &__background {
+      background-color: #f6ebc8;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column
+    }
+
+    &__header{
+      font-family: Montserrat;
+      text-align: center;
+      padding: 16px;
+      color: #2E7D32;
+    }
+  }
+
+  
+  
