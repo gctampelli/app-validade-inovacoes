@@ -21,7 +21,7 @@
         Cadastre aqui o seu produto:
       </header>
       <form [formGroup]="foodInfoForm" (ngSubmit)="addFoodOnList()">
-        <div class="register-food__search-food" *ngIf="!showInputFields">
+        <div class="register-food__search-food">
           <div class="input-group mb-3 register-food__search-food-input">
             <input
               type="text"
@@ -34,9 +34,9 @@
               class="btn btn-primary register-food__search-food--search"
               type="button"
               id="button-addon2"
-              (click)="!scannedResult ? openCamera = true : searchFoodInformation()"
+              (click)="!scannedResult && !showInputFields ? openCamera = true : searchFoodInformation()"
             >
-              {{ scannedResult ? 'Buscar' : 'Ler código' }}
+              {{ scannedResult || showInputFields ? 'Buscar' : 'Ler código' }}
             </button>
           </div>
         </div>

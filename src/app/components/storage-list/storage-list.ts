@@ -22,7 +22,6 @@ export class StorageList implements OnInit{
   ngOnInit(): void {
    this.listFoodsService.lisfFood$.subscribe((resp) => {
     this.foodList = resp
-    console.log(this.foodList, 'passei')
     })
   }
 
