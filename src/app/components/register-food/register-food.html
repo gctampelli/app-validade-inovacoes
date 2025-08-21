@@ -1,0 +1,176 @@
+<div class="register-food__background">
+  <app-navbar></app-navbar>
+  <div id="alert-success" style="display: none; z-index: 1050; top: 0">
+    <div
+      style="width: max-content"
+      class="alert alert-success alert-dismissible fade show position-fixed top-25 start-50 translate-middle-x"
+      role="alert"
+    >
+      <div>Seu produto foi cadastrado com sucesso</div>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+  <div class="register-food__body">
+    <div style="flex: 1">
+      <header class="register-food__header h4">
+        Cadastre aqui o seu produto:
+      </header>
+      <form [formGroup]="foodInfoForm" (ngSubmit)="addFoodOnList()">
+        <div class="register-food__search-food" *ngIf="!showInputFields">
+          <div class="input-group mb-3 register-food__search-food-input">
+            <input
+              type="text"
+              class="form-control"
+              (keydown.enter)="searchFoodInformation()"
+              placeholder="Código de barras"
+              formControlName="foodCode"
+            />
+            <button
+              class="btn btn-primary register-food__search-food--search"
+              type="button"
+              id="button-addon2"
+              [disabled]="!foodInfoForm.controls['foodCode'].value"
+              (click)="searchFoodInformation()"
+            >
+              Buscar
+            </button>
+          </div>
+        </div>
+        <div *ngIf="!foodDetails && !showInputFields">
+          <button
+            type="button"
+            class="btn btn-link register-food__search-food--manual"
+            (click)="showInputFields = true"
+          >
+            Inserir dados manualmente
+          </button>
+        </div>
+
+        <div class="register-food__form-group">
+          <div *ngIf="foodDetails || showInputFields">
+            <div style="display: flex; flex-direction: column">
+              <span
+                class="register-food__label"
+                style="margin-top: 8px !important"
+                >Nome do alimento:</span
+              >
+              <div class="input-group mb-3">
+                <input
+                  class="form-control"
+                  id="floatingFoodName"
+                  type="text"
+                  placeholder="Nome do alimento"
+                  formControlName="foodName"
+                />
+                <button
+                  class="btn btn-primary register-food__search-food--search"
+                  type="button"
+                  id="button-addon2"
+                  (click)="clearFieldValue('foodName')"
+                >
+                  Limpar
+                </button>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column">
+              <span class="register-food__label">Marca:</span>
+              <div class="input-group mb-3">
+                <input
+                  class="form-control"
+                  placeholder="Marca"
+                  id="floatingFoodBrand"
+                  type="text"
+                  formControlName="foodBrand"
+                />
+                <button
+                  class="btn btn-primary register-food__search-food--search"
+                  type="button"
+                  id="button-addon2"
+                  (click)="clearFieldValue('foodBrand')"
+                >
+                  Limpar
+                </button>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column">
+              <span class="register-food__label">Quantidade</span>
+              <div class="input-group mb-3">
+                <input
+                  class="form-control"
+                  placeholder="Quantidade"
+                  id="quantity"
+                  type="number"
+                  formControlName="quantity"
+                />
+                <button
+                  class="btn btn-primary register-food__search-food--search"
+                  type="button"
+                  id="button-addon2"
+                  (click)="clearFieldValue('quantity')"
+                >
+                  Limpar
+                </button>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column">
+              <span class="register-food__label">Data de validade:</span>
+              <div class="input-group mb-3">
+                <input
+                  class="form-control"
+                  placeholder="Data de validade"
+                  id="expirationDate"
+                  type="date"
+                  formControlName="expirationDate"
+                />
+                <button
+                  class="btn btn-primary register-food__search-food--search"
+                  type="button"
+                  id="button-addon2"
+                  (click)="clearFieldValue('expirationDate')"
+                >
+                  Limpar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <footer class="d-grid gap-2 register-food__footer">
+        <button
+        *ngIf="foodInfoForm.dirty && success"
+        type="reset"
+        class="btn btn btn-outline-success register-food__button"
+        (click)="clearFormValues()"
+        [disabled]="foodInfoForm.invalid"
+      >
+        Adicionar novo produto
+      </button>
+      <button
+        *ngIf="foodInfoForm.dirty && !success"
+        type="submit"
+        class="btn btn-primary register-food__button"
+        [disabled]="foodInfoForm.invalid"
+        (click)="addFoodOnList()"
+      >
+        Cadastrar produto
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary register-food__button"
+        (click)="redirectToListFood()"
+      >
+        Ver lista
+      </button>
+    </footer>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<section class="onboarding__background">
+   <app-navbar></app-navbar>
+
+   <div class="container text-center mt-4" style="background-color: #f6ebc8 !important;">
+    <div class="card shadow-sm p-4 border-0" style="border-radius: 16px;">
+      <h4 class="text-success mb-3">🌱 Bem-vindo(a) ao Desperdício ZERO!</h4>
+      <p class="text-secondary">
+        Aqui você pode cadastrar seus alimentos de forma simples e prática:
+      </p>
+      <ul class="list-unstyled text-secondary">
+        <li>📷 Use o <b>código de barras</b> para preencher automaticamente</li>
+        <li>✍️ Ou insira os dados <b>manualmente</b></li>
+        <li>🗒️ Veja todos os itens em <b>“Lista de alimentos”</b></li>
+        <li>⏰ Receba alertas antes do vencimento</li>
+      </ul>
+      <p class="fw-light mt-3">💡 Quanto mais alimentos você cadastrar, mais fácil fica organizar sua despensa.</p>
+    </div>
+  </div>
+
+    <footer class="d-grid gap-2 onboarding__footer">
+        <button class="btn btn-primary onboarding__button" type="button" (click)="redirectToRegisterFood()">Cadastrar alimento</button>
+        <button class="btn btn-primary onboarding__button" type="button" (click)="redirectToList()">Ver lista de alimentos</button>
+    </footer>
+</section>
+
+

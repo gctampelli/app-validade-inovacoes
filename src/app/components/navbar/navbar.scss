@@ -1,0 +1,13 @@
+.navbar {
+    background: linear-gradient(135deg, #4CAF50, #8BC34A);
+    &__title {
+        font-family: Montserrat;
+        color: white;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+
+    &__logo {
+        border-radius: 5px;
+    }
+}
