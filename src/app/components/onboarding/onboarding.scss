@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.onboarding {
+    &__background {
+        background-color: #f6ebc8;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+
+    &__button {
+        margin-bottom: 8px !important;
+        background-color: #2E7D32;
+        border-color: #2E7D32;
+        color: white;
+    }
+    
+    &__footer {
+        margin: 0px 16px;
+    }
+}
+
+.container {
+    background-color: #ffc587;
+}
