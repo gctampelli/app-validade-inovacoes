@@ -132,6 +132,7 @@ export class RegisterFood implements OnInit, AfterViewInit {
       this.foodDetails = null; 
       this.success = !this.success; 
       this.showInputFields = false
+      this.scannedResult = ''
   }
 
 
