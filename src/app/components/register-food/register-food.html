@@ -34,10 +34,9 @@
               class="btn btn-primary register-food__search-food--search"
               type="button"
               id="button-addon2"
-              [disabled]="!foodInfoForm.controls['foodCode'].value"
-              (click)="searchFoodInformation()"
+              (click)="!scannedResult ? openCamera = true : searchFoodInformation()"
             >
-              Buscar
+              {{ scannedResult ? 'Buscar' : 'Ler código' }}
             </button>
           </div>
         </div>
@@ -49,6 +48,14 @@
           >
             Inserir dados manualmente
           </button>
+        </div>
+        <div *ngIf="openCamera" style="margin: 16px">
+          <zxing-scanner
+            [formats]="allowedFormats"
+            [device]="selectedDevice"
+            (scanSuccess)="onCodeResult($event)"
+            (scanError)="onError($event)"
+          ></zxing-scanner>
         </div>
 
         <div class="register-food__form-group">
@@ -146,7 +153,7 @@
     </div>
 
     <footer class="d-grid gap-2 register-food__footer">
-        <button
+      <button
         *ngIf="foodInfoForm.dirty && success"
         type="reset"
         class="btn btn btn-outline-success register-food__button"

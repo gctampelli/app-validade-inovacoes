@@ -12,10 +12,13 @@ import {
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Navbar } from '../navbar/navbar';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { BarcodeFormat } from '@zxing/library';
 
 @Component({
   selector: 'app-register-food',
-  imports: [CommonModule, ReactiveFormsModule, Navbar],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, Navbar, ZXingScannerModule],
   templateUrl: './register-food.html',
   styleUrl: './register-food.scss',
 })
@@ -25,6 +28,28 @@ export class RegisterFood implements OnInit, AfterViewInit {
   public foodList: Array<ProductDetailList> = [];
   public showInputFields = false;
   public success = false
+  public result: string = '';
+  public openCamera = false
+  public allowedFormats = [BarcodeFormat.QR_CODE,
+    BarcodeFormat.DATA_MATRIX,
+    BarcodeFormat.AZTEC,
+    BarcodeFormat.PDF_417,
+    BarcodeFormat.EAN_13,
+    BarcodeFormat.EAN_8,
+    BarcodeFormat.UPC_A,
+    BarcodeFormat.UPC_E,
+    BarcodeFormat.CODE_128,
+    BarcodeFormat.CODE_39,
+    BarcodeFormat.CODE_93,
+    BarcodeFormat.ITF,
+    BarcodeFormat.CODABAR,
+    BarcodeFormat.RSS_14,
+    BarcodeFormat.RSS_EXPANDED,];
+  public scannedResult: string | null = null;
+  public hasDevices = false;
+  public availableDevices: MediaDeviceInfo[] = [];
+  public selectedDevice: MediaDeviceInfo | undefined;  
+
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -107,5 +132,33 @@ export class RegisterFood implements OnInit, AfterViewInit {
       this.foodDetails = null; 
       this.success = !this.success; 
       this.showInputFields = false
+  }
+
+
+  onCodeResult(result: string) {
+    this.openCamera = false
+    this.scannedResult = result
+    this.foodInfoForm?.controls['foodCode']?.setValue(this.scannedResult)
+    this.searchFoodInformation()
+  }
+
+  onDeviceSelectChange(event: Event) {
+    const target = event.target as HTMLSelectElement; 
+    this.selectedDevice = this.availableDevices.find(device => device.deviceId === target.value);
+  }
+
+  onHasDevices(hasDevices: boolean) {
+    this.hasDevices = hasDevices;
+  }
+
+  onDevicesFound(devices: MediaDeviceInfo[]) {
+    this.availableDevices = devices;
+    if (devices.length > 0) {
+      this.selectedDevice = devices[0]; // Fix: Ensure a device is selected initially
+    }
+  }
+
+  onError(error: any) {
+    console.error('Barcode scanning error:', error);
   }
 }
