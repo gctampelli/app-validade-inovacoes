@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="register-food__body">
-    <div style="flex: 1">
+    <div>
       <header class="register-food__header h4">
         Cadastre aqui o seu produto:
       </header>
@@ -56,11 +56,11 @@
             [device]="selectedDevice"
             (scanSuccess)="onCodeResult($event)"
             (scanError)="onError($event)"
-              [videoConstraints]="{
-    width: { ideal: 1280 },
-    height: { ideal: 720 },
-    facingMode: 'environment'
-  }"
+            [videoConstraints]="{
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+              facingMode: 'environment'
+            }"
           ></zxing-scanner>
           <span style="text-align: justify !important;" class="register-food__label"> Caso não consiga realizar a leitura do código de barras, clique no botão "Inserir dados manualmente" para cadastrar o seu produto.</span>
         </div>
