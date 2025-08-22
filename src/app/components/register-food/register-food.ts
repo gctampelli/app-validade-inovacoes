@@ -14,7 +14,7 @@ import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Navbar } from '../navbar/navbar';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { BarcodeFormat } from '@zxing/library';
+import { BarcodeFormat, DecodeHintType} from '@zxing/library';
 
 @Component({
   selector: 'app-register-food',
@@ -51,6 +51,22 @@ export class RegisterFood implements OnInit, AfterViewInit, OnDestroy {
   public availableDevices: MediaDeviceInfo[] = [];
   public selectedDevice: MediaDeviceInfo | undefined;  
   public foodSelected: ProductDetailList
+hints = new Map();
+
+// define os formatos aceitos (todos os comuns de mercado)
+this.hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+  BarcodeFormat.CODE_128,
+  BarcodeFormat.EAN_13,
+  BarcodeFormat.EAN_8,
+  BarcodeFormat.UPC_A,
+  BarcodeFormat.UPC_E,
+  BarcodeFormat.ITF,
+  BarcodeFormat.CODE_39,
+  BarcodeFormat.QR_CODE
+]);
+
+// ativa tryHarder
+this.hints.set(DecodeHintType.TRY_HARDER, true);
 
 
   constructor(

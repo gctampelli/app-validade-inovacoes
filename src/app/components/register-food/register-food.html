@@ -51,6 +51,7 @@
         </div>
         <div *ngIf="openCamera" style="margin: 16px">
           <zxing-scanner
+            [hints]="hints"
             [formats]="allowedFormats"
             [device]="selectedDevice"
             (scanSuccess)="onCodeResult($event)"
