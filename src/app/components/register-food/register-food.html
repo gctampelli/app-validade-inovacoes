@@ -51,16 +51,11 @@
         </div>
         <div *ngIf="openCamera" style="margin: 16px">
           <zxing-scanner
-            [hints]="hints"
             [formats]="allowedFormats"
             [device]="selectedDevice"
             (scanSuccess)="onCodeResult($event)"
             (scanError)="onError($event)"
-            [videoConstraints]="{
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
-              facingMode: 'environment'
-            }"
+            [videoConstraints]="constraints"
           ></zxing-scanner>
           <span style="text-align: justify !important;" class="register-food__label"> Caso não consiga realizar a leitura do código de barras, clique no botão "Inserir dados manualmente" para cadastrar o seu produto.</span>
         </div>

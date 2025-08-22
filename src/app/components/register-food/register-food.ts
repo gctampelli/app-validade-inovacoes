@@ -51,22 +51,12 @@ export class RegisterFood implements OnInit, AfterViewInit, OnDestroy {
   public availableDevices: MediaDeviceInfo[] = [];
   public selectedDevice: MediaDeviceInfo | undefined;  
   public foodSelected: ProductDetailList
-hints = new Map();
-
-// define os formatos aceitos (todos os comuns de mercado)
-this.hints.set(DecodeHintType.POSSIBLE_FORMATS, [
-  BarcodeFormat.CODE_128,
-  BarcodeFormat.EAN_13,
-  BarcodeFormat.EAN_8,
-  BarcodeFormat.UPC_A,
-  BarcodeFormat.UPC_E,
-  BarcodeFormat.ITF,
-  BarcodeFormat.CODE_39,
-  BarcodeFormat.QR_CODE
-]);
-
-// ativa tryHarder
-this.hints.set(DecodeHintType.TRY_HARDER, true);
+  public constraints: MediaTrackConstraints = {
+    width: { min: 640, ideal: 1920 },
+    height: { min: 400, ideal: 1080 },
+    aspectRatio: { ideal: 1.7777777778 },
+    facingMode: 'environment'
+  } 
 
 
   constructor(
